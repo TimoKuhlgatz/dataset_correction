@@ -94,7 +94,8 @@ def _as_list(datasets) -> list[str]:
 
 
 def source_loader(dataset: str, data: str, number: int, cache_dir: str | Path | None = None):
-    """The loader a check of error `number` reads: the deposit, or the data corrected for errors 1..number-1."""
+    """The loader a check of error `number` reads: the deposit, or the data corrected for every error before it
+    (mocapref.correction.SEQUENCE)."""
     if data == 'deposited':
         from ..datasets import load_dataset
         # Trento as published pairs the k-th IMU trial with the k-th optical file; Geneva's published files.

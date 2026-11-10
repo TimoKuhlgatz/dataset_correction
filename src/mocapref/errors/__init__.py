@@ -8,7 +8,8 @@ Each module has
     handle_<error>(datasets, data=...)  the check over whole datasets: an ErrorReport with the prevalence per
                                         dataset, the per-trial rows, notes and the corrected data (_report.py).
 
-The check of error N runs on data corrected for every error with a smaller number (mocapref.correction):
+The check of error N runs on data corrected for every error with a smaller number, except that error 4 is corrected
+before error 3 is checked (mocapref.correction.SEQUENCE):
      1 swapped marker labels      2 marker in the wrong place      3 reference jumps or flips
      4 gaps filled without a flag 5 clipping                       6 integer overflow
      7 dead, stuck or railed      8 wrong trial pairing            9 IMU on the wrong segment

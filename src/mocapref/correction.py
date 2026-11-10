@@ -10,12 +10,17 @@ negated, offsets subtracted, mounting rotated out, gravity restored), and errors
 
     loader = correct_in_order('camargo')            # every handled error corrected
     rec = loader.load(loader.trials()[0])
-    loader = correct_in_order('camargo', up_to=12)  # corrected for errors 1-12 only
+    loader = correct_in_order('camargo', up_to=12)  # corrected up to and including error 12
     reports = run_in_order(['camargo', 'wmcg'])     # {number: ErrorReport}, each check on the data corrected before it
 
 Each check runs over a whole dataset (several corrections pool a participant's trials), so the first call per
 dataset and error takes as long as the check itself. With cache_dir set, every report's rows are saved there and
 read back on the next call instead of running the check again.
+
+Sequence: the corrections are applied in the sequence of the working pipeline the paper's numbers come from, which
+is the numbering except that gaps filled without a flag (error 4) are masked before the reference jumps or flips
+(error 3) are looked for: the jump check runs on data corrected for errors 1, 2 and 4, the gap check on data
+corrected for errors 1 and 2 (SEQUENCE).
 
 Readers: Trento upper limb ('bonfiglio') is read with the deposit's own trial pairing until its pairing is
 corrected (error 8), with the repaired pairing afterwards. Geneva ('grouvel') is read from the streams rebuilt from
@@ -41,6 +46,26 @@ ORDER: dict[int, str] = {
     22: 'e22_gravity_removed',
 }
 ALL_CORRECTED = max(ORDER) + 1
+# The sequence in which the corrections are applied (module description, "Sequence"): error 4 before error 3.
+SEQUENCE: tuple[int, ...] = (1, 2, 4, 3) + tuple(range(5, ALL_CORRECTED))
+
+
+def before(number: int) -> list[int]:
+    """The handled errors corrected before the check of error `number` runs (all of them for ALL_CORRECTED)."""
+    if number == ALL_CORRECTED:
+        return list(SEQUENCE)
+    return list(SEQUENCE[:SEQUENCE.index(number)])
+
+
+def previous(number: int) -> int:
+    """The error corrected just before error `number` in SEQUENCE (0 for the first)."""
+    i = SEQUENCE.index(number)
+    return SEQUENCE[i - 1] if i else 0
+
+
+def through(number: int) -> list[int]:
+    """The handled errors corrected once error `number` is corrected: those before it and `number` itself."""
+    return list(SEQUENCE[:SEQUENCE.index(number) + 1])
 
 
 def parts(number: int) -> dict:
@@ -85,13 +110,15 @@ def _rows_in_order(dataset: str, number: int, cache_dir: str | None) -> pd.DataF
 
 
 def corrected_before(dataset: str, number: int, cache_dir=None):
-    """A loader of `dataset` corrected for every handled error with a number smaller than `number`."""
+    """A loader of `dataset` corrected for every handled error before error `number` in SEQUENCE."""
+    return _corrected(dataset, before(number), base_reader(dataset, number), cache_dir)
+
+
+def _corrected(dataset: str, errors: list[int], reader: str, cache_dir=None):
     from .datasets import load_dataset
-    loader = load_dataset(base_reader(dataset, number))
+    loader = load_dataset(reader)
     cache = None if cache_dir is None else str(cache_dir)
-    for n in sorted(ORDER):
-        if n >= number:
-            break
+    for n in errors:
         correct = parts(n).get('correct')
         if correct is not None:
             rows = _rows_in_order(dataset, n, cache)
@@ -100,8 +127,13 @@ def corrected_before(dataset: str, number: int, cache_dir=None):
 
 
 def correct_in_order(dataset: str, up_to: int | None = None, cache_dir=None):
-    """A loader of `dataset` with errors 1..up_to corrected in the agreed order (default: every handled error)."""
-    return corrected_before(dataset, ALL_CORRECTED if up_to is None else up_to + 1, cache_dir=cache_dir)
+    """A loader of `dataset` corrected in SEQUENCE up to and including error `up_to` (default: every handled error;
+    0: none). up_to=3 includes error 4, which is corrected before error 3; up_to=4 means errors 1, 2 and 4."""
+    if up_to is None:
+        return corrected_before(dataset, ALL_CORRECTED, cache_dir=cache_dir)
+    errors = through(up_to) if up_to else []
+    nxt = SEQUENCE[len(errors)] if len(errors) < len(SEQUENCE) else ALL_CORRECTED
+    return _corrected(dataset, errors, base_reader(dataset, nxt), cache_dir)
 
 
 def run_in_order(datasets=None, errors=None, cache_dir=None, notes: dict | None = None) -> dict:

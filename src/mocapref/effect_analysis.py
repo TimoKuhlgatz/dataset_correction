@@ -41,6 +41,7 @@ import pandas as pd
 
 from .effect import combine_trial_grids, default_grids, test_on_trial, trial_grid
 from .motion_onset import SEGMENT_WINDOWS_KEY, motion_onset_s
+from .correction import previous as _previous
 from .tuning_split import effect_datasets, load_split
 
 GRID_LIMITS = dict(MEKF=((1e-14, 1e10), (1e-13, 1e14)), zoe=((1e-14, 1e10), (1e-14, 1e10)))  # (R range, Q range)
@@ -163,7 +164,7 @@ class EffectAnalysis:
     @classmethod
     def for_error(cls, number: int, datasets=None, methods=('MEKF', 'zoe'), processes: int = 1, cache_dir=None):
         """Data corrected for every error before `number` against data corrected also for `number`."""
-        return cls(datasets, methods, {f'before_{number}': _CorrectedFactory(cache_dir, number - 1),
+        return cls(datasets, methods, {f'before_{number}': _CorrectedFactory(cache_dir, _previous(number)),
                                        f'after_{number}': _CorrectedFactory(cache_dir, number)},
                    processes, cache_dir)
 

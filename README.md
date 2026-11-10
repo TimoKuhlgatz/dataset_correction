@@ -75,7 +75,9 @@ for name in ['is2b', 'hip_rom_y', 'camargo']:          # several datasets: the s
 ## The errors
 
 Numbered in the order in which they are detected and corrected: the check of error N runs on data already corrected
-for every error with a smaller number. *fix* = repaired, *mask* = samples or frames marked invalid,
+for every error with a smaller number, with one exception: gaps filled without a flag (4) are masked before reference
+jumps or flips (3) are looked for, so the jump check runs on data corrected for errors 1, 2 and 4, and the gap check
+on data corrected for errors 1 and 2 (`mocapref.correction.SEQUENCE`). *fix* = repaired, *mask* = samples or frames marked invalid,
 *report* = flagged only.
 
 | # | Error | Module | Data |
@@ -93,7 +95,7 @@ for every error with a smaller number. *fix* = repaired, *mask* = samples or fra
 | 11 | Sampling rate not as declared | `e11_sampling_rate` | fix |
 | 12 | Time offset between IMU and reference | `e12_time_offset` | fix |
 | 13 | Clock drift between IMU and reference | `e13_clock_drift` | fix |
-| 14 | IMUs of one trial on different time scales | `e14_time_scales` | fix |
+| 14 | IMUs of one trial on different time scales | `e14_time_scales` | report |
 | 15 | Corrupted single samples | `e15_corrupted_samples` | mask |
 | 16 | Mirrored gyroscope or single flipped axis | `e16_mirrored_gyroscope` | fix |
 | 17 | Gyroscope offset | `e17_gyroscope_offset` | fix |
@@ -145,7 +147,7 @@ fixed = errors.remove_synchronisation_offset(rec, result)
 from mocapref.correction import correct_in_order, run_in_order, prevalence_table
 
 loader = correct_in_order('camargo', cache_dir='output/cache')           # every handled error corrected
-loader = correct_in_order('camargo', up_to=12, cache_dir='output/cache') # errors 1-12 only
+loader = correct_in_order('camargo', up_to=12, cache_dir='output/cache') # up to and including error 12
 reports = run_in_order(['camargo', 'wmcg'], cache_dir='output/cache')     # {number: ErrorReport}
 print(prevalence_table(reports))                                         # 'trials / occurrences' per error
 ```

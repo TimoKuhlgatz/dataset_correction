@@ -1,5 +1,5 @@
 """Known-answer test for the dataset-level handler of error 14 (IMUs of one trial on different time scales): the one
-IMU running at its own rate is counted and aligned by the corrected loader. The check itself is tested in
+IMU running at its own rate is counted, left unchanged in the agreed order, and aligned by the optional rescale(). The check itself is tested in
 test_errors_known_answer.py."""
 from memory_loader import MemoryLoader
 from mocapref.errors import e14_time_scales as M
@@ -14,5 +14,6 @@ def test_handler_counts_and_aligns_the_deviating_imu():
     rows = M.check_dataset(loader, 'synthetic', 1)
     p = M.prevalence(rows)
     assert (p['trials_checked'], p['trials_detected'], p['occurrences'], p['undecided']) == (2, 1, 1, 1)
-    fixed = M.correct(loader, rows)
+    assert M.correct(loader, rows) is loader                      # report only in the agreed order
+    fixed = M.rescale(loader, rows)
     assert not M.check_for_sensor_rate_mismatch(fixed.load('apart')).detected

@@ -18,3 +18,12 @@ def test_readers_switch_where_the_order_says():
     assert C.base_reader('grouvel', 7) == 'grouvel'
     assert C.base_reader('grouvel', 8) == 'grouvel_raw'
     assert C.base_reader('camargo', 1) == 'camargo'
+
+
+def test_sequence_follows_the_working_pipeline():
+    """Gaps filled without a flag (4) are masked before the reference jumps (3) are looked for."""
+    assert C.SEQUENCE[:5] == (1, 2, 4, 3, 5) and sorted(C.SEQUENCE) == sorted(C.ORDER)
+    assert C.before(3) == [1, 2, 4] and C.before(4) == [1, 2] and C.before(5) == [1, 2, 4, 3]
+    assert C.through(3) == [1, 2, 4, 3] and C.through(4) == [1, 2, 4]
+    assert C.previous(3) == 4 and C.previous(4) == 2 and C.previous(1) == 0
+    assert C.before(C.ALL_CORRECTED) == list(C.SEQUENCE)

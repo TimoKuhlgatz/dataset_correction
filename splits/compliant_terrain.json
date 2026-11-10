@@ -1,0 +1,26 @@
+{
+ "dataset": "compliant_terrain",
+ "seed": 32580699,
+ "created": "2026-10-28",
+ "min_tuning_s": 20.0,
+ "min_test_s": 15.0,
+ "convergence_s": 10.0,
+ "unit": "participant",
+ "tuning_participants": [
+  "SUB02"
+ ],
+ "test_participants": [
+  "SUB01"
+ ],
+ "tuning": [
+  "SUB02/speed0p6",
+  "SUB02/speed0p8",
+  "SUB02/speed1p0"
+ ],
+ "test": [
+  "SUB01/speed0p6",
+  "SUB01/speed0p8",
+  "SUB01/speed1p0"
+ ],
+ "excluded": {}
+}

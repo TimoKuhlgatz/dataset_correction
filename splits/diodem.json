@@ -1,0 +1,25 @@
+{
+ "dataset": "diodem",
+ "seed": 2979528573,
+ "created": "2026-10-28",
+ "min_tuning_s": 20.0,
+ "min_test_s": 15.0,
+ "convergence_s": 10.0,
+ "unit": "trial",
+ "tuning": [
+  "arm/exp01",
+  "arm/exp03",
+  "arm/exp05",
+  "gait/exp08",
+  "gait/exp09"
+ ],
+ "test": [
+  "arm/exp02",
+  "arm/exp04",
+  "gait/exp06",
+  "gait/exp07",
+  "gait/exp10",
+  "gait/exp11"
+ ],
+ "excluded": {}
+}

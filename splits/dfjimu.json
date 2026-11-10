@@ -1,0 +1,29 @@
+{
+ "dataset": "dfjimu",
+ "seed": 3614710163,
+ "created": "2026-10-28",
+ "min_tuning_s": 20.0,
+ "min_test_s": 15.0,
+ "convergence_s": 10.0,
+ "unit": "trial",
+ "tuning": [
+  "data_1D_01",
+  "data_1D_02",
+  "data_1D_05",
+  "data_2D_05",
+  "data_2D_07",
+  "data_3D_01",
+  "data_3D_04"
+ ],
+ "test": [
+  "data_1D_03",
+  "data_1D_04",
+  "data_2D_01",
+  "data_2D_02",
+  "data_2D_03",
+  "data_3D_02",
+  "data_3D_03",
+  "data_3D_05"
+ ],
+ "excluded": {}
+}

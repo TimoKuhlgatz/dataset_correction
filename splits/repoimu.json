@@ -1,0 +1,36 @@
+{
+ "dataset": "repoimu",
+ "seed": 2467293177,
+ "created": "2026-10-28",
+ "min_tuning_s": 20.0,
+ "min_test_s": 15.0,
+ "convergence_s": 10.0,
+ "unit": "trial",
+ "tuning": [
+  "pendulum/Test01a_Static",
+  "pendulum/Test02a_Trial1",
+  "pendulum/Test02b_Trial1",
+  "pendulum/Test03_Trial1",
+  "pendulum/Test03_Trial2",
+  "pendulum/Test03_Trial3",
+  "pendulum/Test05_Trial1",
+  "pendulum/Test06_Trial3",
+  "pendulum/Test07_Trial1",
+  "pendulum/Test07_Trial3",
+  "pendulum/Test08_Trial2"
+ ],
+ "test": [
+  "pendulum/Test01b_Static",
+  "pendulum/Test04_Trial1",
+  "pendulum/Test04_Trial2",
+  "pendulum/Test04_Trial3",
+  "pendulum/Test05_Trial2",
+  "pendulum/Test05_Trial3",
+  "pendulum/Test06_Trial1",
+  "pendulum/Test06_Trial2",
+  "pendulum/Test07_Trial2",
+  "pendulum/Test08_Trial1",
+  "pendulum/Test08_Trial3"
+ ],
+ "excluded": {}
+}

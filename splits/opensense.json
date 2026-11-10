@@ -1,0 +1,47 @@
+{
+ "dataset": "opensense",
+ "seed": 3959030469,
+ "created": "2026-10-28",
+ "min_tuning_s": 20.0,
+ "min_test_s": 15.0,
+ "convergence_s": 10.0,
+ "unit": "participant",
+ "tuning_participants": [
+  "Subject01",
+  "Subject02",
+  "Subject09",
+  "Subject11"
+ ],
+ "test_participants": [
+  "Subject03",
+  "Subject04",
+  "Subject05",
+  "Subject07",
+  "Subject08"
+ ],
+ "tuning": [
+  "Subject01/complexTasks",
+  "Subject01/walking",
+  "Subject02/complexTasks",
+  "Subject02/walking",
+  "Subject09/complexTasks",
+  "Subject09/walking",
+  "Subject11/complexTasks",
+  "Subject11/walking"
+ ],
+ "test": [
+  "Subject03/complexTasks",
+  "Subject03/walking",
+  "Subject04/complexTasks",
+  "Subject04/walking",
+  "Subject05/walking",
+  "Subject07/complexTasks",
+  "Subject07/walking",
+  "Subject08/walking"
+ ],
+ "excluded": {
+  "Subject06/complexTasks": "recorded at 40 Hz and interpolated to 100 Hz",
+  "Subject10/walking": "recorded at 40 Hz and interpolated to 100 Hz"
+ },
+ "changed": "2026-11-09: the 40 Hz trials taken out (Subject06 and Subject10 have no trial left) and Subject07/complexTasks added to the test half, where its participant is; the drawn participant halves are otherwise kept"
+}

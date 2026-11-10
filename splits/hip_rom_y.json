@@ -1,0 +1,50 @@
+{
+ "dataset": "hip_rom_y",
+ "seed": 1795449345,
+ "created": "2026-10-28",
+ "min_tuning_s": 20.0,
+ "min_test_s": 15.0,
+ "convergence_s": 10.0,
+ "unit": "participant",
+ "tuning_participants": [
+  "P10",
+  "P11",
+  "P14",
+  "P15",
+  "P16",
+  "P4",
+  "P5",
+  "P8"
+ ],
+ "test_participants": [
+  "P1",
+  "P12",
+  "P13",
+  "P2",
+  "P3",
+  "P6",
+  "P7",
+  "P9"
+ ],
+ "tuning": [
+  "P4/documented-recording",
+  "P5/documented-recording",
+  "P8/documented-recording",
+  "P10/documented-recording",
+  "P11/documented-recording",
+  "P14/documented-recording",
+  "P15/documented-recording",
+  "P16/documented-recording"
+ ],
+ "test": [
+  "P1/documented-recording",
+  "P2/documented-recording",
+  "P3/documented-recording",
+  "P6/documented-recording",
+  "P7/documented-recording",
+  "P9/documented-recording",
+  "P12/documented-recording",
+  "P13/documented-recording"
+ ],
+ "excluded": {}
+}

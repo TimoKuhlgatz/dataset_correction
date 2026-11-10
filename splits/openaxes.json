@@ -1,0 +1,22 @@
+{
+ "dataset": "openaxes",
+ "seed": 4131716218,
+ "created": "2026-10-28",
+ "min_tuning_s": 20.0,
+ "min_test_s": 15.0,
+ "convergence_s": 10.0,
+ "unit": "trial",
+ "tuning": [
+  "ur5/circle-100",
+  "ur5/triangle-100",
+  "ur5/triangle-150",
+  "ur5/triangle-250"
+ ],
+ "test": [
+  "ur5/circle-150",
+  "ur5/circle-200",
+  "ur5/circle-250",
+  "ur5/triangle-200"
+ ],
+ "excluded": {}
+}

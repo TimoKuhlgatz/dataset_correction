@@ -1,0 +1,17 @@
+{
+ "dataset": "reemc",
+ "seed": 54292288,
+ "created": "2026-10-28",
+ "min_tuning_s": 20.0,
+ "min_test_s": 15.0,
+ "convergence_s": 10.0,
+ "unit": "trial",
+ "tuning": [
+  "reemc/ROBOT_TURNING_0003"
+ ],
+ "test": [
+  "reemc/ROBOT_CIRCLE_RUN_0003",
+  "reemc/ROBOT_CIRCLE_RUN_0004"
+ ],
+ "excluded": {}
+}

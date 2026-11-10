@@ -1,0 +1,6 @@
+repo_structure.md
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+output/

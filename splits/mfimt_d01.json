@@ -1,0 +1,20 @@
+{
+ "dataset": "mfimt_d01",
+ "seed": 2845819421,
+ "created": "2026-10-28",
+ "min_tuning_s": 20.0,
+ "min_test_s": 15.0,
+ "convergence_s": 10.0,
+ "unit": "time",
+ "tuning": [
+  "d01"
+ ],
+ "test": [
+  "d01"
+ ],
+ "halves": {
+  "tuning": "first half",
+  "test": "second half"
+ },
+ "excluded": {}
+}
